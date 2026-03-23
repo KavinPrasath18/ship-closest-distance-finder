@@ -1,7 +1,8 @@
 from turtle import *
+type ship_coords = tuple[int,int] 
 class Shipmarker:
     
-    def __init__(self,x,y):
+    def __init__(self,x: int,y: int):
         self.circle = Turtle(shape = "circle")
         self.x = x  
         self.y = y
@@ -13,7 +14,7 @@ class Shipmarker:
         self.circle.penup() 
         self.circle.goto(self.x,self.y)
     
-    def closest_ship_marker(self,s1,s2):
+    def closest_ship_marker(self,s1: ship_coords,s2: ship_coords):
 
         # The Attributes for the line drawn are given 
         self.circle.color("red")
