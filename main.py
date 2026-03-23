@@ -36,7 +36,7 @@ def closest_distance_finder(ship_Data):
 
     """
     gets the ship_Data from the random_pos_generator and uses it to find the closest between each ships with the euclidean distance formula, 
-    after which it returns the two ships Id which are close to each other
+    after which it returns the two ships Id which are close to each other nnmmm 
 
     parameters:
     ship_Data(dict) : Dictionary containing ship Id along with its respective coordinates in the 2D plane
