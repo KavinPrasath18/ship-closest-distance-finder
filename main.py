@@ -1,5 +1,7 @@
 import random
 import math
+from turtle_plot import Shipmarker
+from turtle import *
 def random_pos_generate(number_Ships,dim):
     
     """
@@ -15,8 +17,8 @@ def random_pos_generate(number_Ships,dim):
     """
 
     def generate_coords():
-        x = random.randint(0,dim)
-        y = random.randint(0,dim)
+        x = random.randint(-dim,dim)
+        y = random.randint(-dim,dim)
 
         return((x,y))
 
@@ -28,9 +30,12 @@ def random_pos_generate(number_Ships,dim):
             coords = generate_coords()
         else:
             ship_Data[ship_Id] = coords
+            obj = Shipmarker(coords[0],coords[1])
+            obj.marker_coords()
             ship_Id += 1
+    return ship_Data
             
-    return ship_Data 
+
 
 def closest_distance_finder(ship_Data):
 
@@ -47,6 +52,8 @@ def closest_distance_finder(ship_Data):
     closest_distance(float) : the distance between the two ships
     """
 
+    data = ship_Data
+    print(data)
 
     closest_distance = float('inf')
     closest_ships,closest_coords = (),()
@@ -61,9 +68,22 @@ def closest_distance_finder(ship_Data):
                     closest_distance = dis
                     closest_ships = (i,j)
                     closest_coords = (ship_Data[i],ship_Data[j])
-                
+
+
+    marker = Shipmarker(closest_coords[0],closest_coords[1])
+    print(closest_coords)
+    marker.closest_ship_marker(closest_coords[0],closest_coords[1])            
 
     return closest_ships,closest_coords,closest_distance
             
 
 #print(closest_distance_finder(value))
+
+screen = Screen()
+screen.setup(width = 400,height = 400)
+
+number_ships = screen.numinput(title = "Number Of Ships to Be Spawned", prompt = "How Many Ships Do You Want To Generate :")
+
+closest_distance_finder(random_pos_generate(int(number_ships),200))
+
+screen.exitonclick() 
