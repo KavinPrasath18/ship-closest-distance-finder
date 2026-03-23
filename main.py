@@ -5,8 +5,8 @@ from turtle import *
 def random_pos_generate(number_Ships,dim):
     
     """
-    Gets The Number of ships for which coords are to be generated in a 2 dimension plane and 
-    generates the x,y coords for each ships 
+    Gets the number of ships and the dimension of the plane and gives each of the ships its respective random coordinates
+    it also plots the ships in its respective coords with the use of turtle module 
 
     parameters:
     number_Ships(int) : Number of ships for which the coords are to be generated
@@ -17,12 +17,12 @@ def random_pos_generate(number_Ships,dim):
     """
 
     def generate_coords():
-        x = random.randint(-dim,dim)
+        x = random.randint(-dim,dim) # random x and y coords for each ships
         y = random.randint(-dim,dim)
 
         return((x,y))
 
-    ship_Data = {}
+    ship_Data = {} # each ship and its respective coords are stored in a dictionary 
     ship_Id = 0
     for i in range(number_Ships):
         coords = generate_coords()
@@ -30,7 +30,7 @@ def random_pos_generate(number_Ships,dim):
             coords = generate_coords()
         else:
             ship_Data[ship_Id] = coords
-            obj = Shipmarker(coords[0],coords[1])
+            obj = Shipmarker(coords[0],coords[1])  # The ships are then plotted through the turtle module with their x and y values
             obj.marker_coords()
             ship_Id += 1
     return ship_Data
@@ -53,25 +53,22 @@ def closest_distance_finder(ship_Data):
     """
 
     data = ship_Data
-    print(data)
 
-    closest_distance = float('inf')
+    closest_distance = float('inf') # Used to set a reference for infinty as default so that the conditions work properly
     closest_ships,closest_coords = (),()
     dis = 0
 
-    print(ship_Data.keys())
     for i in ship_Data.keys():
         for j in ship_Data.keys():
             if i!=j:
-                dis = math.sqrt((ship_Data[i][0] - ship_Data[j][0])**2 + (ship_Data[i][1] - ship_Data[j][1])**2)
+                dis = math.sqrt((ship_Data[i][0] - ship_Data[j][0])**2 + (ship_Data[i][1] - ship_Data[j][1])**2) # The distance between each ships are calculated using the euclidean's distance formula
                 if dis < closest_distance: 
                     closest_distance = dis
                     closest_ships = (i,j)
                     closest_coords = (ship_Data[i],ship_Data[j])
 
 
-    marker = Shipmarker(closest_coords[0],closest_coords[1])
-    print(closest_coords)
+    marker = Shipmarker(closest_coords[0],closest_coords[1]) 
     marker.closest_ship_marker(closest_coords[0],closest_coords[1])            
 
     return closest_ships,closest_coords,closest_distance
@@ -79,11 +76,11 @@ def closest_distance_finder(ship_Data):
 
 #print(closest_distance_finder(value))
 
-screen = Screen()
-screen.setup(width = 400,height = 400)
+screen = Screen() 
+screen.setup(width = 600,height = 600) # The size of the screen is defined
 
-number_ships = screen.numinput(title = "Number Of Ships to Be Spawned", prompt = "How Many Ships Do You Want To Generate :")
+number_ships = screen.numinput(title = "Number Of Ships to Be Spawned", prompt = "How Many Ships Do You Want To Generate :") # The Number of ships is obtined from the user through a window
 
-closest_distance_finder(random_pos_generate(int(number_ships),200))
+closest_distance_finder(random_pos_generate(int(number_ships),280))  
 
 screen.exitonclick() 
